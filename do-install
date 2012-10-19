@@ -2,6 +2,6 @@
 if [ "${REAL_CXX}" = "g++-4.7" ]
 then
     # /test is for newer upstream releases; 4.6 is the last gcc in precise
-    sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+    sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
 fi
 sudo apt-get install "${REAL_CXX}"
