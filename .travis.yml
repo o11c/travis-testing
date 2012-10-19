@@ -1,9 +1,11 @@
 language: cpp
 install: ./do-install
 script: ./do-build
+# travis forces CC=gcc and CXX=g++
+# and only support clang as an alternative
 env:
- - CC=gcc-4.4 CXX=g++-4.4
- - CC=gcc-4.5 CXX=g++-4.5
- - CC=gcc-4.6 CXX=g++-4.6
- - CC=gcc-4.7 CXX=g++-4.7
- - CC=clang   CXX=clang++
+ - REAL_CC=gcc-4.4 REAL_CXX=g++-4.4
+ - REAL_CC=gcc-4.5 REAL_CXX=g++-4.5
+ - REAL_CC=gcc-4.6 REAL_CXX=g++-4.6
+ - REAL_CC=gcc-4.7 REAL_CXX=g++-4.7
+ - REAL_CC=clang   REAL_CXX=clang++

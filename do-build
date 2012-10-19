@@ -1,2 +1,2 @@
 #!/bin/sh
-make -e
+make CC="${REAL_CC}" CXX="${REAL_CXX}"
