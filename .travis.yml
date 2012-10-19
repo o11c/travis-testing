@@ -1,0 +1,9 @@
+language: cpp
+install: ./do-install
+script: ./do-build
+compiler:
+ - gcc-4.4
+ - gcc-4.5
+ - gcc-4.6
+ - gcc-4.7
+ - clang
