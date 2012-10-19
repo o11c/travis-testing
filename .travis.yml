@@ -1,11 +1,48 @@
+## Doesn't appear to do anything useful.
 language: cpp
-install: ./do-install
-script: ./do-build
-# travis forces CC=gcc and CXX=g++
-# and only support clang as an alternative
+
+## Notifications. Should this be on or off?
+notifications:
+  irc: "irc.themanaworld.org#tmw-dev"
+
+## Commands before installing prerequisites
+# before_install: git submodule update --init --recursive
+
+## Install prerequisites
+install:
+  - |
+    if [ "${REAL_CXX}" = "g++-4.7" ]
+    then
+        sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
+        sudo apt-get update -qq
+    fi
+  - sudo apt-get install -qq ${REAL_CXX}
+
+## Do something before the main test script
+# before_script: ...
+
+## Main test script
+script:
+  - make CC=${REAL_CC} CXX=${REAL_CXX}
+
+## Do something after the main test script
+# after_script: ...
+
+### The rest of the file creates a build matrix
+### containing gcc-4.4 through gcc-4.7 and clang-3.1
+
+## This doesn't work - travis defaults to plain gcc if unknown
+# compiler: gcc-4.4
+# compiler: gcc-4.5
+# compiler: gcc-4.6
+# compiler: gcc-4.7
+# compiler: clang
+
+## Environment variables to expand the build matrix
+## Needed because compiler: gcc overwrites CC and CXX
 env:
- - REAL_CC=gcc-4.4 REAL_CXX=g++-4.4
- - REAL_CC=gcc-4.5 REAL_CXX=g++-4.5
- - REAL_CC=gcc-4.6 REAL_CXX=g++-4.6
- - REAL_CC=gcc-4.7 REAL_CXX=g++-4.7
- - REAL_CC=clang   REAL_CXX=clang++
+  - REAL_CC=gcc-4.4 REAL_CXX=g++-4.4
+  - REAL_CC=gcc-4.5 REAL_CXX=g++-4.5
+  - REAL_CC=gcc-4.6 REAL_CXX=g++-4.6
+  - REAL_CC=gcc-4.7 REAL_CXX=g++-4.7
+  - REAL_CC=clang   REAL_CXX=clang++
