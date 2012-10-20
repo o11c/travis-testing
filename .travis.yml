@@ -3,14 +3,19 @@ language: cpp
 
 ## Notifications. Should this be on or off?
 notifications:
-  irc: "irc.themanaworld.org#tmw-dev"
+  email: yes
+  irc:
+    channels:
+      - "irc.themanaworld.org#tmw-dev"
+    on_success: always
+    on_failures: always
 
 ## Commands before installing prerequisites
 # before_install: git submodule update --init --recursive
 
 ## Install prerequisites
 install:
-  - if [ "${REAL_CXX}" = "g++-4.7" ]; then sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test; sudo apt-get update -qq; fi
+  - if [ "${REAL_CXX}" = "g++-4.7" ]; then sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test && sudo apt-get update -qq; fi
   - sudo apt-get install -qq ${REAL_CXX}
 
 ## Do something before the main test script

@@ -1,3 +1,2 @@
 default:
 	${CXX} --version
-	env
