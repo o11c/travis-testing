@@ -3,17 +3,18 @@ language: cpp
 
 ## Notifications. Should this be on or off?
 ## Disabled because it breaks all notifications
-#notifications:
+notifications:
 ## Is this necessary?
 #  email: yes
-#  irc:
-#    channels:
-#      - "irc.themanaworld.org#tmw-dev"
-#    on_success: always
-#    on_failures: always
+  irc:
+    channels:
+      - "irc.themanaworld.org#tmw-dev"
+    on_success: always
+    on_failure: always
 
 ## Commands before installing prerequisites
 # before_install: git submodule update --init --recursive
+before_install: "false"
 
 ## Install prerequisites
 install:
@@ -26,7 +27,6 @@ install:
 ## Main test script
 script:
   - make CC=${REAL_CC} CXX=${REAL_CXX}
-  - "false"
 
 ## Do something after the main test script
 # after_script: ...
