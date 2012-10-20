@@ -12,12 +12,12 @@ notifications:
     on_failure: always
   ## Are we going to want this on or off?
   irc:
-    channels:
-      - "irc.themanaworld.org#tmw-dev"
+    channels:   "irc.themanaworld.org#tmw-dev"
     on_success: always
     on_failure: always
 
 ## Commands before installing prerequisites
+before_install: export CC=${REAL_CC} CXX=${REAL_CXX}
 # before_install: git submodule update --init --recursive
 
 ## Install prerequisites
