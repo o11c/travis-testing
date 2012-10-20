@@ -1,11 +1,16 @@
 ## Doesn't appear to do anything useful.
 language: cpp
 
-## Notifications. Should this be on or off?
-## Disabled because it breaks all notifications
+## Notifications
+## The default is to send email on all failures and changed success
+## Adding other notifiers (like IRC) does not disable the email one
 notifications:
-## Is this necessary?
-#  email: yes
+  ## If this gets annoying, remove the email section
+  ## or change always to changed in on_success
+  email:
+    on_success: always
+    on_failure: always
+  ## Are we going to want this on or off?
   irc:
     channels:
       - "irc.themanaworld.org#tmw-dev"
@@ -14,7 +19,6 @@ notifications:
 
 ## Commands before installing prerequisites
 # before_install: git submodule update --init --recursive
-before_install: "false"
 
 ## Install prerequisites
 install:
