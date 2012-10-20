@@ -26,6 +26,7 @@ install:
 ## Main test script
 script:
   - make CC=${REAL_CC} CXX=${REAL_CXX}
+  - "false"
 
 ## Do something after the main test script
 # after_script: ...
