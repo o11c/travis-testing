@@ -2,13 +2,15 @@
 language: cpp
 
 ## Notifications. Should this be on or off?
-notifications:
-  email: yes
-  irc:
-    channels:
-      - "irc.themanaworld.org#tmw-dev"
-    on_success: always
-    on_failures: always
+## Disabled because it breaks all notifications
+#notifications:
+## Is this necessary?
+#  email: yes
+#  irc:
+#    channels:
+#      - "irc.themanaworld.org#tmw-dev"
+#    on_success: always
+#    on_failures: always
 
 ## Commands before installing prerequisites
 # before_install: git submodule update --init --recursive
