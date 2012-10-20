@@ -12,7 +12,7 @@ notifications:
     on_failure: always
   ## Are we going to want this on or off?
   irc:
-    channels:   "irc.themanaworld.org#tmw-dev"
+    channel:    "irc.themanaworld.org#tmw-dev"
     on_success: always
     on_failure: always
 
@@ -30,6 +30,7 @@ install:
 
 ## Main test script
 script:
+  - echo CC=${CC} CXX=${CXX}
   - make CC=${REAL_CC} CXX=${REAL_CXX}
 
 ## Do something after the main test script
