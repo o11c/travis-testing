@@ -1,2 +1,3 @@
 default:
 	${CXX} --version
+	false
