@@ -1,3 +1,5 @@
-default:
+default: glibcxx-version
 	${CXX} --version
-	false
+	./glibcxx-version
+
+glibcxx-version:
