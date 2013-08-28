@@ -27,12 +27,16 @@ install:
 # if > or | folding is used, error
 # but YAML folds by default on this, so it works (I hope)
   -
-    if [ "${REAL_CXX}" = "g++-4.7" ];
+    if [ "${REAL_CXX}" = "g++-4.7" ] || [ "${REAL_CXX}" = "g++-4.8" ];
     then
         sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test &&
         sudo apt-get update -qq;
     fi
-  - sudo apt-get install -qq ${REAL_CXX}
+  -
+    if ! [ "${REAL_CXX}" = "clang++" ];
+    then
+        sudo apt-get install -qq ${REAL_CXX};
+    fi
 
 ## Do something before the main test script
 # before_script: ...
@@ -46,14 +50,20 @@ script:
 # after_script: ...
 
 ### The rest of the file creates a build matrix
-### containing gcc-4.4 through gcc-4.7 and clang-3.1
+### containing gcc-4.4 through gcc-4.8 and clang-3.1
 
 ## This doesn't work - travis defaults to plain gcc if unknown
-# compiler: gcc-4.4
-# compiler: gcc-4.5
-# compiler: gcc-4.6
-# compiler: gcc-4.7
-# compiler: clang
+#compiler:
+#  - gcc-4.4
+#  - gcc-4.5
+#  - gcc-4.6
+#  - gcc-4.7
+#  - gcc-4.8
+#  - clang
+
+compiler:
+  - gcc
+  - clang
 
 ## Environment variables to expand the build matrix
 ## Needed because compiler: gcc overwrites CC and CXX
@@ -62,4 +72,19 @@ env:
   - REAL_CC=gcc-4.5 REAL_CXX=g++-4.5
   - REAL_CC=gcc-4.6 REAL_CXX=g++-4.6
   - REAL_CC=gcc-4.7 REAL_CXX=g++-4.7
+  - REAL_CC=gcc-4.8 REAL_CXX=g++-4.8
   - REAL_CC=clang   REAL_CXX=clang++
+
+exclude:
+  - compiler: gcc
+    env: REAL_CC=clang   REAL_CXX=clang++
+  - compiler: clang
+    env: REAL_CC=gcc-4.4 REAL_CXX=g++-4.4
+  - compiler: clang
+    env: REAL_CC=gcc-4.5 REAL_CXX=g++-4.5
+  - compiler: clang
+    env: REAL_CC=gcc-4.6 REAL_CXX=g++-4.6
+  - compiler: clang
+    env: REAL_CC=gcc-4.7 REAL_CXX=g++-4.7
+  - compiler: clang
+    env: REAL_CC=gcc-4.8 REAL_CXX=g++-4.8
