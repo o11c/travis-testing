@@ -26,31 +26,25 @@ before_install: export CC=${REAL_CC} CXX=${REAL_CXX}
 install:
 # if > or | folding is used, error
 # but YAML folds by default on this, so it works (I hope)
-  -
-    if [ "${REAL_CXX}" = "g++-4.7" ] || [ "${REAL_CXX}" = "g++-4.8" ];
+  - if [ -z "$PPA" ];
     then
-        sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test &&
-        sudo apt-get update -qq;
+        sudo add-apt-repository --yes $PPA;
     fi
-  -
-    if ! [ "${REAL_CXX}" = "clang++" ];
-    then
-        sudo apt-get install -qq ${REAL_CXX};
-    fi
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq $PACKAGE
 
 ## Do something before the main test script
 # before_script: ...
 
 ## Main test script
 script:
-  - echo CC=${CC} CXX=${CXX}
-  - make CC=${REAL_CC} CXX=${REAL_CXX}
+  - make
 
 ## Do something after the main test script
 # after_script: ...
 
 ### The rest of the file creates a build matrix
-### containing gcc-4.4 through gcc-4.8 and clang-3.1
+### containing gcc-4.4 through gcc-4.8 and clang-2.9 through clang-3.3
 
 ## This doesn't work - travis defaults to plain gcc if unknown
 #compiler:
@@ -60,21 +54,30 @@ script:
 #  - gcc-4.7
 #  - gcc-4.8
 #  - clang
-compiler: gcc # just so it can be excluded
+env:
+  - ignore=this
 
 matrix:
   exclude:
-    - compiler: gcc
+    - env: ignore=this
   include:
     - compiler: clang
-      env: REAL_CC=clang   REAL_CXX=clang++
+      env: REAL_CC=clang-2.9 REAL_CXX=clang++-2.9 PPA=ppa:h-rayflood/llvm         PACKAGE=clang-2.9
+    - compiler: clang
+      env: REAL_CC=clang-3.0 REAL_CXX=clang++-3.0 PPA=ppa:h-rayflood/llvm         PACKAGE=clang-3.0
+    - compiler: clang
+      env: REAL_CC=clang-3.1 REAL_CXX=clang++-3.1 PPA=ppa:h-rayflood/llvm         PACKAGE=clang-3.1
+    - compiler: clang
+      env: REAL_CC=clang-3.2 REAL_CXX=clang++-3.2 PPA=ppa:h-rayflood/llvm         PACKAGE=clang-3.2
+    - compiler: clang
+      env: REAL_CC=clang-3.3 REAL_CXX=clang++-3.3 PPA=ppa:h-rayflood/llvm         PACKAGE=clang-3.3
     - compiler: gcc
-      env: REAL_CC=gcc-4.4 REAL_CXX=g++-4.4
+      env: REAL_CC=gcc-4.4   REAL_CXX=g++-4.4     PPA=                            PACKAGE=g++-4.4
     - compiler: gcc
-      env: REAL_CC=gcc-4.5 REAL_CXX=g++-4.5
+      env: REAL_CC=gcc-4.5   REAL_CXX=g++-4.5     PPA=                            PACKAGE=g++-4.5
     - compiler: gcc
-      env: REAL_CC=gcc-4.6 REAL_CXX=g++-4.6
+      env: REAL_CC=gcc-4.6   REAL_CXX=g++-4.6     PPA=                            PACKAGE=g++-4.6
     - compiler: gcc
-      env: REAL_CC=gcc-4.7 REAL_CXX=g++-4.7
+      env: REAL_CC=gcc-4.7   REAL_CXX=g++-4.7     PPA=ppa:ubuntu-toolchain-r/test PACKAGE=g++-4.7
     - compiler: gcc
-      env: REAL_CC=gcc-4.8 REAL_CXX=g++-4.8
+      env: REAL_CC=gcc-4.8   REAL_CXX=g++-4.8     PPA=ppa:ubuntu-toolchain-r/test PACKAGE=g++-4.8
