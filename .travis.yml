@@ -26,7 +26,7 @@ before_install: export CC=${REAL_CC} CXX=${REAL_CXX}
 install:
 # if > or | folding is used, error
 # but YAML folds by default on this, so it works (I hope)
-  - if [ -z "$PPA" ];
+  - if [ -n "$PPA" ];
     then
         sudo add-apt-repository --yes $PPA;
     fi
