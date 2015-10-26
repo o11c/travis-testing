@@ -1,16 +1,16 @@
 sudo: false
 language: python
-python:
-  - "2.6"
-  - "2.7"
-  - "3.2"
-  - "3.3"
-  - "3.4"
-  - "3.5"
-  - "3.5-dev"
-  - "nightly"
-  - "pypy"
-  - "pypy3"
+#python:
+#  - "2.6"
+#  - "2.7"
+#  - "3.2"
+#  - "3.3"
+#  - "3.4"
+#  - "3.5"
+#  - "3.5-dev"
+#  - "nightly"
+#  - "pypy"
+#  - "pypy3"
 
 script:
   - for PYTHON in python python2 python3 python2.6 python2.7 python3.2 python3.3 python3.4 python3.5 python3.6 python3.7 pypy pypy2 pypy3 jython; do echo $PYTHON; $PYTHON --version || echo NOT FOUND; done
@@ -20,7 +20,10 @@ notifications:
     channels:
       - "chat.freenode.net#o11c"
     template:
+      # Note: be sure to set channel mode -c, since colors are blocked by default.
       - "plain \x02bold\x0f \x031,2color\x0f \x11monospace\x0f \x16reverse\x0f \x1ditalic\x0f \x1funderline\x0f"
+      - "\x0301,00c00\x03 \x0301,01c01\x03 \x0301,02c02\x03 \x0301,03c03\x03 \x0301,04c04\x03 \x0301,05c05\x03 \x0301,06c06\x03 \x0301,07c07\x03 \x0301,08c08\x03 \x0301,09c09\x03 \x0301,10c10\x03 \x0301,11c11\x03 \x0301,12c12\x03 \x0301,13c13\x03 \x0301,14c14\x03 \x0301,15c15\x03 \x0301,16c16\x03 \x0301,99c99\x03"
+      - "\x0307,00c00\x03 \x0307,01c01\x03 \x0307,02c02\x03 \x0307,03c03\x03 \x0307,04c04\x03 \x0307,05c05\x03 \x0307,06c06\x03 \x0307,07c07\x03 \x0307,08c08\x03 \x0307,09c09\x03 \x0307,10c10\x03 \x0307,11c11\x03 \x0307,12c12\x03 \x0307,13c13\x03 \x0307,14c14\x03 \x0307,15c15\x03 \x0307,16c16\x03 \x0307,99c99\x03"
       - "%{repository_slug}#%{build_number} (%{branch} - %{commit} : %{author}): %{message}"
       - "Change view : %{compare_url}"
       - "Build details : %{build_url}"
